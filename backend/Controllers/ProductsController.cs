@@ -40,27 +40,24 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ProductEntity>>> GetAllProducts()
         {
-            var products = _context.Products.ToListAsync();
+            var products = await _context.Products.ToListAsync();
 
             return Ok(products);
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<ProductEntity>> GetProductByID([FromRoute] long id)
         {
             var product = await _context.Products.FirstOrDefaultAsync(q => q.Id == id);
 
-            if ( product is null)
+            if (product is null)
             {
                 return NotFound("Product Not Found");
             }
 
             return Ok(product);
-            {
-                
-            }
         }
+
 
         // Update
         [HttpPut]
@@ -76,6 +73,7 @@ namespace backend.Controllers
 
             product.Title = dto.Title;
             product.Brand = dto.Brand;
+            product.UpdatedAt = DateTime.Now;
 
             await _context.SaveChangesAsync();
 
