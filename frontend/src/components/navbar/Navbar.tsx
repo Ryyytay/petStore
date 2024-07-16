@@ -1,16 +1,28 @@
 import "./navbar.scss";
-import { Menu } from "@mui/icons-material";
+import { Menu, Close } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Navbar: React.FC = () => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  const toggleNavBar = () => {
+    if (window.innerWidth < 500) {
+      setOpen(!open);
+    }
+  };
+
+  const menuStyle = open ? "menu open" : "menu";
+
   return (
     <div className="navbar">
       <div className="brand">Pet Store</div>
       <div className="hamburger">
-        <Menu />
+        <Menu onClick={toggleNavBar} />
       </div>
-      <div className="menu">
+      <div className={menuStyle}>
         <ul>
+          <Close className="close" onClick={toggleNavBar} />
           <li>
             <Link to="/">Home</Link>
           </li>

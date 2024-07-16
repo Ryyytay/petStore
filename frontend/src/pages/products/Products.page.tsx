@@ -37,8 +37,11 @@ const Products: React.FC = () => {
   //  console.log(products);
 
   const redirectToEditPage = (id: string) => {
-    console.log(`Redirecting to /products/edit/${id}`);
     redirect(`/products/edit/${id}`);
+  };
+
+  const redirectToDeletePage = (id: string) => {
+    redirect(`/products/delete/${id}`);
   };
 
   return (
@@ -70,10 +73,15 @@ const Products: React.FC = () => {
                       variant="outlined"
                       color="warning"
                       sx={{ mx: 3 }}
-                      onClick={() => redirectToEditPage(product.id)}>
+                      onClick={() => redirectToEditPage(product.id)}
+                    >
                       <Edit />
                     </Button>
-                    <Button variant="outlined" color="error">
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => redirectToDeletePage(product.id)}
+                    >
                       <Delete />
                     </Button>
                   </td>
